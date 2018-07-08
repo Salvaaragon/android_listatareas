@@ -22,6 +22,11 @@ public class DataBaseTasks extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // Aquí añadimos código SQL que funciona como lector de consulta de la BD
         // Código para crear BD
+        db.execSQL("CREATE TABLE Tarea (" +
+                   "id INTEGER PRIMARY KEY NOT NULL, " +
+                   "nombre VARCHAR NOT NULL, " +
+                   "fecha VARCHAR NOT NULL, " +
+                   "descripcion VARCHAR NOT NULL);");
     }
 
     @Override
