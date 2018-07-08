@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">RememberApp</string>
+    <string name="logo1">MIS</string>
+    <string name="logo2">Tareas</string>
+    <string name="boton1">Todas mis\n tareas</string>
+    <string name="boton2">Nueva tarea</string>
+    <string name="cabeceraAllTasks">Todas mis Tareas</string>
+    <string name="Tarea1">Mi Tarea 1</string>
+    <string name="Para">Para:</string>
+    <string name="taskdescription">Aquí va la descripción de la tarea que hemos creado anteriormente.</string>
+    <string name="labelNameTask">Nombre de la tarea:</string>
+    <string name="labelfechafinTask">Fecha de fin de la tarea:</string>
+    <string name="labeltaskDescription">Descripción de la tarea:</string>
+    <string name="saveButton">Guardar</string>
+</resources>
