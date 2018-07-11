@@ -20,10 +20,14 @@ public class NewTaskActivity extends AppCompatActivity {
     LinearLayout btnSave;
     Task taskObject;
 
+    DataBaseTasks dataBaseTasks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
+
+        dataBaseTasks = new DataBaseTasks(this);
 
         tarea = new ArrayList<String>();
         fecha = new ArrayList<String>();
@@ -61,12 +65,7 @@ public class NewTaskActivity extends AppCompatActivity {
         date = etDia.getText().toString() +"/"+ etMes.getText().toString() +"/"+ etAnio.getText().toString();
         description = etDesc.getText().toString();
 
-        /*tarea.add(task);
-        fecha.add(date);
-        desc.add(description);*/
-
-        taskObject = new Task(task, date, description);
-        Toast.makeText(this, "Se ha creado una nueva tarea",Toast.LENGTH_SHORT);
+        dataBaseTasks.guardaDatos(task, date, description);
     }
 
 }

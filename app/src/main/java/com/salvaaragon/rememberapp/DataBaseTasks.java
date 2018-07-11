@@ -1,9 +1,9 @@
 package com.salvaaragon.rememberapp;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
 
 /**
  * @author Salva Aragón
@@ -23,7 +23,7 @@ public class DataBaseTasks extends SQLiteOpenHelper {
         // Aquí añadimos código SQL que funciona como lector de consulta de la BD
         // Código para crear BD
         db.execSQL("CREATE TABLE Tarea (" +
-                   "id INTEGER PRIMARY KEY NOT NULL, " +
+                   "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                    "nombre VARCHAR NOT NULL, " +
                    "fecha VARCHAR NOT NULL, " +
                    "descripcion VARCHAR NOT NULL);");
@@ -32,5 +32,13 @@ public class DataBaseTasks extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Aquí añadimos código SQL para actualizar la BD (Estructura o modelo como tal)
+    }
+
+    public void guardaDatos(String task, String date, String desc) {
+        getReadableDatabase().execSQL("INSERT INTO Tarea VALUES ("+null+", '"+task+"', '"+date+"', '"+desc+"');");
+    }
+
+    public Cursor getTareas() {
+        return getReadableDatabase().query("Tarea", null, null, null, null, null, null);
     }
 }
