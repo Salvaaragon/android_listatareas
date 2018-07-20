@@ -66,6 +66,9 @@ public class NewTaskActivity extends AppCompatActivity {
         description = etDesc.getText().toString();
 
         dataBaseTasks.guardaDatos(task, date, description);
+
+        Toast.makeText(this, "La tarea se ha agregado correctamente", Toast.LENGTH_SHORT).show();
+        finish(); // Elimina la actividad actual de la pila de actividades
     }
 
 }

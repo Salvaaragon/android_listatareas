@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AllTasksActivity extends AppCompatActivity {
 
@@ -23,6 +26,8 @@ public class AllTasksActivity extends AppCompatActivity {
     ImageView back;
     FloatingActionButton btnFloat;
     DataBaseTasks dataBaseTasks;
+    ArrayList<Task> tareasBD;
+    Map<String, Integer> mapaTareas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +35,13 @@ public class AllTasksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_all_tasks);
         dataBaseTasks = new DataBaseTasks(this);
 
+        tareasBD = new ArrayList<Task>();
+        tareasBD = obtenDatos();
         nombre_tareas = new ArrayList<String>();
-        
+        mapaTareas = new HashMap<String, Integer>();
+
         llenaArreglo();
+        llenarMapa();
 
         listTasks = (ListView) findViewById(R.id.listtasks);
         back = (ImageView) findViewById(R.id.back_aat);
@@ -41,6 +50,15 @@ public class AllTasksActivity extends AppCompatActivity {
         btnFloat = (FloatingActionButton) findViewById(R.id.btn_float);
 
         listTasks.setAdapter(adapter);
+        listTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String nombre = adapter.getItem(position);
+
+
+                Toast.makeText(getApplicationContext(), "ID: " + mapaTareas.get(nombre), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,13 +79,15 @@ public class AllTasksActivity extends AppCompatActivity {
     public ArrayList<Task> obtenDatos() {
         Cursor datos = dataBaseTasks.getTareas();
         ArrayList<Task> tareas = new ArrayList<Task>();
+        int id;
         String name, date, desc;
 
         while(datos.moveToNext()) {
+            id = datos.getInt(datos.getColumnIndex("id"));
             name = datos.getString(datos.getColumnIndex("nombre"));
             date = datos.getString(datos.getColumnIndex("fecha"));
             desc = datos.getString(datos.getColumnIndex("descripcion"));
-            Task task = new Task(name, date, desc);
+            Task task = new Task(id, name, date, desc);
             tareas.add(task);
         }
 
@@ -75,9 +95,16 @@ public class AllTasksActivity extends AppCompatActivity {
     }
 
     public void llenaArreglo() {
-        ArrayList<Task> tareas = obtenDatos();
-        for(int i = 0; i < tareas.size(); i++) {
-            nombre_tareas.add(tareas.get(i).getNombre());
+        for(int i = 0; i < tareasBD.size(); i++) {
+            nombre_tareas.add(tareasBD.get(i).getNombre());
         }
     }
+
+    public void llenarMapa() {
+        for(int i = 0; i < tareasBD.size(); i++) {
+            mapaTareas.put(tareasBD.get(i).getNombre(), tareasBD.get(i).getId());
+        }
+    }
+
+
 }
