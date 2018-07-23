@@ -1,6 +1,8 @@
 package com.salvaaragon.rememberapp;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,8 @@ public class TaskActivity extends AppCompatActivity {
     TextView tvFecha;
     TextView tvDesc;
 
+    FloatingActionButton btnEditTask;
+
     DataBaseTasks bd;
 
     String id;
@@ -30,6 +34,8 @@ public class TaskActivity extends AppCompatActivity {
         tvFecha = (TextView) findViewById(R.id.tv_task_date);
         tvDesc = (TextView) findViewById(R.id.tv_task_desc);
 
+        btnEditTask = (FloatingActionButton) findViewById(R.id.edit_task_btn);
+
         back = (ImageView) findViewById(R.id.back_at);
 
         id = getIntent().getExtras().getString("ID");
@@ -39,6 +45,15 @@ public class TaskActivity extends AppCompatActivity {
         Toast.makeText(this, "ID: "+ id, Toast.LENGTH_SHORT).show();
 
         ObtenerMostrarDatos();
+
+        btnEditTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TaskActivity.this, EditTask.class);
+                intent.putExtra("ID_TASK", id);
+                startActivity(intent);
+            }
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
