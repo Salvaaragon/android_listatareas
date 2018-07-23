@@ -54,9 +54,11 @@ public class AllTasksActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String nombre = adapter.getItem(position);
+                //Toast.makeText(getApplicationContext(), "ID: " + mapaTareas.get(nombre), Toast.LENGTH_SHORT).show();
 
-
-                Toast.makeText(getApplicationContext(), "ID: " + mapaTareas.get(nombre), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(AllTasksActivity.this, TaskActivity.class);
+                intent.putExtra("ID", mapaTareas.get(nombre).toString());
+                startActivity(intent);
             }
         });
 

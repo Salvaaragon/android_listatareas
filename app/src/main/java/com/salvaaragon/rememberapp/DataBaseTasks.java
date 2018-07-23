@@ -41,4 +41,8 @@ public class DataBaseTasks extends SQLiteOpenHelper {
     public Cursor getTareas() {
         return getReadableDatabase().query("Tarea", null, null, null, null, null, null);
     }
+
+    public Cursor getTaskById(String id) {
+        return getReadableDatabase().rawQuery("SELECT * FROM Tarea WHERE id = "+id+";", null);
+    }
 }
