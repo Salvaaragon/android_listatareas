@@ -45,4 +45,10 @@ public class DataBaseTasks extends SQLiteOpenHelper {
     public Cursor getTaskById(String id) {
         return getReadableDatabase().rawQuery("SELECT * FROM Tarea WHERE id = "+id+";", null);
     }
+
+    public void updateTask(String id, String nombre, String fecha, String desc) {
+        getReadableDatabase().execSQL("UPDATE Tarea " +
+                                            "SET nombre = '"+nombre+"', fecha = '"+fecha+"', descripcion = '"+desc+"'" +
+                                            "WHERE id = "+id+";");
+    }
 }

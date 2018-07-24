@@ -3,7 +3,9 @@ package com.salvaaragon.rememberapp;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class EditTask extends AppCompatActivity {
@@ -13,6 +15,7 @@ public class EditTask extends AppCompatActivity {
     EditText mes;
     EditText annio;
     EditText descripcion;
+    LinearLayout btnActualizar;
 
     DataBaseTasks bd;
 
@@ -30,10 +33,20 @@ public class EditTask extends AppCompatActivity {
         mes = (EditText) findViewById(R.id.et_mes_update);
         annio = (EditText) findViewById(R.id.et_anio_update);
         descripcion = (EditText) findViewById(R.id.et_desc_update);
+        btnActualizar = (LinearLayout) findViewById(R.id.btn_update);
 
         id = getIntent().getExtras().getString("ID_TASK");
 
         ObtenerMostrarDatos();
+
+        btnActualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String fecha = dia.getText().toString() +"/"+ mes.getText().toString() +"/"+ annio.getText().toString();
+                bd.updateTask(id, nombre.getText().toString(), fecha, descripcion.getText().toString());
+                finish();
+            }
+        });
     }
 
     public void ObtenerMostrarDatos() {
