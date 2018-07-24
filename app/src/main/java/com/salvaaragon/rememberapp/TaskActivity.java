@@ -42,8 +42,6 @@ public class TaskActivity extends AppCompatActivity {
 
         bd = new DataBaseTasks(this);
 
-        Toast.makeText(this, "ID: "+ id, Toast.LENGTH_SHORT).show();
-
         ObtenerMostrarDatos();
 
         btnEditTask.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +50,7 @@ public class TaskActivity extends AppCompatActivity {
                 Intent intent = new Intent(TaskActivity.this, EditTask.class);
                 intent.putExtra("ID_TASK", id);
                 startActivity(intent);
+                finish();
             }
         });
 

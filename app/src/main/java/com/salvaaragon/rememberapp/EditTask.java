@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ public class EditTask extends AppCompatActivity {
     EditText annio;
     EditText descripcion;
     LinearLayout btnActualizar;
+    ImageView btnBack;
 
     DataBaseTasks bd;
 
@@ -34,6 +36,7 @@ public class EditTask extends AppCompatActivity {
         annio = (EditText) findViewById(R.id.et_anio_update);
         descripcion = (EditText) findViewById(R.id.et_desc_update);
         btnActualizar = (LinearLayout) findViewById(R.id.btn_update);
+        btnBack = (ImageView) findViewById(R.id.back_aew);
 
         id = getIntent().getExtras().getString("ID_TASK");
 
@@ -45,6 +48,14 @@ public class EditTask extends AppCompatActivity {
                 String fecha = dia.getText().toString() +"/"+ mes.getText().toString() +"/"+ annio.getText().toString();
                 bd.updateTask(id, nombre.getText().toString(), fecha, descripcion.getText().toString());
                 finish();
+                Toast.makeText(getApplicationContext(),"La tarea ha sido actualizada correctamente", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
